@@ -1,4 +1,4 @@
-export interface Monastery {
+export interface InputData {
   id: number;
   tbtitle: string; // Tibetan title
   entitle: string; // English title
@@ -15,11 +15,17 @@ export interface Monastery {
   web: string; // Website URL
   type: string; // Type of institution (e.g., monastery)
 }
-import monasteryData from "../../data.json";
+import inpuDataList from "../../example.data.json";
 
-export async function loadMonasteryData(): Promise<Monastery[]> {
+export async function loadMonasteryData(): Promise<InputData[]> {
   try {
-    return monasteryData as Monastery[];
+    if (inpuDataList.length === 0) {
+      throw new Error("No data found in the JSON file");
+    } else if (inpuDataList.length == 1 && inpuDataList[0].type === "test") {
+      throw new Error("Add actual json data to example.data.json");
+    } else {
+      return inpuDataList as InputData[];
+    }
   } catch (error) {
     console.error("Error loading or parsing JSON file:", error);
     throw error;
