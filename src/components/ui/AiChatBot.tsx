@@ -111,6 +111,7 @@ function ChatMessage({
       )}
     >
       {isAiMessage && <Bot className="mr-2 shrink-0" />}
+
       <p
         className={cn(
           "whitespace-pre-line rounded-md border px-3 py-2",
@@ -118,14 +119,8 @@ function ChatMessage({
         )}
       >
         {content}
-        {!isAiMessage && (
-          <User
-            width={100}
-            height={100}
-            className="ml-2 h-10 w-10 rounded-full object-cover"
-          />
-        )}
       </p>
+      {!isAiMessage && <User className="ml-2  rounded-full object-cover" />}
     </div>
   );
 }
