@@ -1,5 +1,6 @@
 import Image from "next/image";
 import EmbeddingButton from "./EmbeddingButton";
+import AIChatButton from "@/components/ui/AIChatButton";
 
 export default function Home() {
   return (
@@ -8,6 +9,8 @@ export default function Home() {
         <div>
           <h1>Embed to Pinecone</h1>
           <EmbeddingButton />
+
+          <AIChatButton />
         </div>
       </main>
       <footer className="row-start-3 flex gap-6 flex-wrap items-center justify-center">
