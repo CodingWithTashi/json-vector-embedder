@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { PineconeStore } from "@langchain/pinecone";
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
-import { loadMonasteryData, Monastery } from "./monastery";
+import { loadMonasteryData, InputData } from "./monastery";
 
 export default function EmbeddingButton() {
   const [progress, setProgress] = useState(0);
@@ -23,7 +23,7 @@ export default function EmbeddingButton() {
       setErrorMessage("");
 
       // Fetch JSON data
-      const arrayData: Monastery[] = await loadMonasteryData();
+      const arrayData: InputData[] = await loadMonasteryData();
 
       // Update progress to 10%
       setProgress(10);
@@ -50,7 +50,7 @@ export default function EmbeddingButton() {
       setProgress(50);
 
       // Prepare documents for embedding
-      const docs = arrayData.map((item: Monastery, index: number) => ({
+      const docs = arrayData.map((item: InputData, index: number) => ({
         pageContent: JSON.stringify({
           title: item.entitle,
           content: item.encontent,
