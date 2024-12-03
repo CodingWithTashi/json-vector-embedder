@@ -21,36 +21,34 @@ export default function EmbeddingButton() {
   const prepareDocuments = (arrayData: InputData[]): Document[] => {
     return arrayData.map((item: InputData, index: number) => ({
       pageContent: `
-        Name: ${item.entitle}
-        Description: ${item.encontent}
-        
-        Location Details:
-        - Street: ${item.street}
-        - Address: ${item.address_2}
-        - State: ${item.state}
-        - Country: ${item.country}
-        - Postal Code: ${item.postal_code}
-        
-        Contact Information:
-        - Phone: ${item.phone}
-        - Email: ${item.email}
-        - Website: ${item.web}
-        
-        Additional Context:
-        - Categories: ${item.categories}
-        - Type: ${item.type}
-      `.trim(),
+      Details about ${item.entitle}:
+      - Type: ${item.type}
+      
+      Location Information:
+      ${item.country ? `Country: ${item.country}` : ""}
+      ${item.state ? `State/Province: ${item.state}` : ""}
+      ${item.street ? `Street: ${item.street}` : ""}
+      ${item.postal_code ? `Postal Code: ${item.postal_code}` : ""}
+      
+      Descriptive Context:
+      ${item.encontent || "No detailed description available"}
+      
+      Contact Details:
+      ${item.phone ? `Phone: ${item.phone}` : ""}
+      ${item.email ? `Email: ${item.email}` : ""}
+      ${item.web ? `Website: ${item.web}` : ""}
+    `.trim(),
       metadata: {
         index: index,
-        source: `cta`,
         id: item.id,
-        type: item.type,
         name: item.entitle,
+        type: item.type,
+        categories: item.categories,
         location: {
-          street: item.street,
-          address: item.address_2,
-          state: item.state,
           country: item.country,
+          state: item.state,
+          street: item.street,
+          postalCode: item.postal_code,
         },
         contact: {
           phone: item.phone,

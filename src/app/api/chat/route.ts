@@ -33,25 +33,11 @@ export async function POST(req: Request) {
       (match) => match.metadata?.text as string
     );
 
-    // If no relevant documents found, return a specific response
-    if (relevantDocs.length === 0) {
-      return new Response(
-        JSON.stringify({
-          content:
-            "I apologize, but I couldn't find any relevant information in my knowledge base to answer this query. Could you please ask something related to Tibetan monasteries, statues, or events?",
-        }),
-        {
-          status: 200,
-          headers: { "Content-Type": "application/json" },
-        }
-      );
-    }
-
     // Construct system prompt with retrieved context
     const systemPrompt =
       "You are a specialized assistant with knowledge only about Tibetan monasteries, statues, and related events. " +
-      "You MUST only respond based on the following retrieved contextual information. " +
-      "If the user's query cannot be answered using these sources, politely explain that you cannot provide an answer. " +
+      "You MUST only respond based on the following retrieved contextual information and repond should answer what was asked. " +
+      "If the user's query cannot be answered using these sources, politely explain that you cannot provide an answer except for greetings.\n" +
       "Provide a concise, informative response staying strictly within the context:\n\n" +
       relevantDocs
         .map(
@@ -59,7 +45,7 @@ export async function POST(req: Request) {
             `[Source ${index + 1}]\n${JSON.stringify(doc, null, 2)}`
         )
         .join("\n\n") +
-      "\n\nImportant: Your response must be directly derived from these sources only.";
+      "\n\nImportant: Your response must be directly derived from these sources only except for greetings";
 
     // Initialize Gemini model
     const genAI = new GoogleGenerativeAI(
