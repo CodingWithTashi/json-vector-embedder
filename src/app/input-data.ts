@@ -17,7 +17,7 @@ export interface InputData {
 }
 import inpuDataList from "../../example.data.json";
 
-export async function loadMonasteryData(): Promise<InputData[]> {
+export async function loadInputData(): Promise<InputData[]> {
   try {
     if (inpuDataList.length === 0) {
       throw new Error("No data found in the JSON file");

@@ -6,7 +6,7 @@ import { Progress } from "@/components/ui/progress";
 import { Pinecone } from "@pinecone-database/pinecone";
 import { PineconeStore } from "@langchain/pinecone";
 import { GoogleGenerativeAIEmbeddings } from "@langchain/google-genai";
-import { loadMonasteryData, InputData } from "./input-data";
+import { loadInputData, InputData } from "./input-data";
 import { Document } from "@langchain/core/documents";
 import { TaskType } from "@google/generative-ai";
 
@@ -67,7 +67,7 @@ export default function EmbeddingButton() {
       setErrorMessage("");
 
       // Fetch JSON data
-      const arrayData: InputData[] = await loadMonasteryData();
+      const arrayData: InputData[] = await loadInputData();
 
       // Update progress to 10%
       setProgress(10);
